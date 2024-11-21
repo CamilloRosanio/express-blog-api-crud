@@ -1,19 +1,19 @@
 // Dichiarazione dei REQUIRE delle risorse
-const path = require('path');
 const postArray = require('../data/posts.js');
 
 
 
 // index
-function index() {
+function index(req, res) {
 
+    // logica
     const term = req.query.term ?? '';
-  
     let filteredPosts;
   
     filteredPosts = postArray.filter((post) => {
   
         const titleIncludesTerm = post.title.toLowerCase().includes(term.toLowerCase());
+        const contentIncludesTerm = post.content.toLowerCase().includes(term.toLowerCase());
   
         let tagsIncludesTerm = false;
   
@@ -21,59 +21,76 @@ function index() {
             if (tag.toLowerCase().includes(term.toLowerCase())) tagsIncludesTerm = true;
         })
   
-        return titleIncludesTerm || tagsIncludesTerm;
+        return titleIncludesTerm || contentIncludesTerm || tagsIncludesTerm;
     })
-  
+
+    // risposta positiva
+    // in questo caso non c'è errore ma al massimo vengono trovati zero post con quella query
     res.json({
-      postNum: filteredPosts.length,
+      foundPosts: filteredPosts.length,
       posts: filteredPosts,
     });
-
 }
 
 
 // show
-function show() {
-    const id = req.params.id;
+function show(req, res) {
+    
+    // logica
+    const id = parseInt(req.params.id);
+    filteredPost = postArray.filter(post => parseInt(post.id) === parseInt(id));
 
-    filteredArray = postArray.filter(post => parseInt(post.id) === parseInt(id));
+    // gestione errore
+    if(filteredPost.length == 0) {
+        res.json('Post not found');
+    }
 
-    res.json(filteredArray);
+    // risposta positiva
+    res.json(filteredPost);
 }
 
 
 // store
-function store() {
-
+function store(req, res) {
     res.json('Crea un nuovo Post');
 }
 
 
 // update
-function update() {
-    
-    // Estrazione di un singolo PARAM dall'URL con DESTRUCTURING, in questo caso "id"
-    const { id } = req.params;
-    
+function update(req, res) {
+    const id = parseInt(req.params.id);
     res.json(`Modifica totale del post con id ${id}`);
 }
 
 
 // modify
-function modify() {
-    
-    const { id } = req.params;
-
+function modify(req, res) {
+    const id = parseInt(req.params.id);
     res.json(`Modifica parziale del post con id ${id}`);
 }
 
 
 // destroy
-function destroy() {
+function destroy(req, res) {
 
-    const id = req.params.id;
+    // logica
+    const id = parseInt(req.params.id);
+    findPost = postArray.find((post, index) => post.id == id );
+    deleteIndex = postArray.indexOf(findPost);
 
-    res.json(`Eliminazione del post con id ${id}`);
+    // gestione errore
+    if(!findPost) {
+        return res.sendStatus(404);
+    }
+
+    // logica
+    postArray.splice(deleteIndex, 1);
+
+    // risposta positiva
+    res.json({
+        foundPosts: postArray.length,
+        posts: postArray,
+      });
 }
 
 

@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 
 // Dichiarazione dei REQUIRE delle risorse
-const path = require('path');
 const postController = require('../controllers/postsController');
 
 
@@ -14,7 +13,6 @@ router.post('/', postController.store);
 router.put('/:id', postController.update);
 router.patch('/:id', postController.modify);
 router.delete('/:id', postController.destroy);
-
 
 
 // EXPORT del ROUTER

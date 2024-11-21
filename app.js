@@ -1,4 +1,4 @@
-// Dichiaro il REQUIRE del DOTENV
+// Dichiarazione DOTENV e relativi valori
 const dotEnv = require('dotenv').config();
 const port = process.env.PORT;
 const host = process.env.HOST;
@@ -6,12 +6,11 @@ const host = process.env.HOST;
 
 
 // Dichiarazione EXPRESS JS
-
 const express = require('express');
 const app = express();
 
+// Dichiarazione risorse PUBLIC
 app.use(express.static('public'));
-
 
 // Dichiarazione ROUTERS
 const postsRouter = require('./routers/posts');
@@ -24,7 +23,6 @@ app.use('/posts', postsRouter);
 app.get('/', (req, res) => {
   res.send('Il mio Blog');
 })
-
 
 // Dichiarazione LISTEN
 app.listen(port, () => {

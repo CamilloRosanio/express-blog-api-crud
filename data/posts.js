@@ -8,35 +8,35 @@ const host = process.env.HOST;
 
 const postArray = [
     {
-        id: 12,
+        id: 2,
         title: 'Ciambellone',
         content: 'Delizioso ciambellone',
         img: host + port + `/img/ciambellone.jpeg`,
         tags: ['ciambellone', 'Dolce', 'Torte']
     },
     {
-        id: 21,
+        id: 4,
         title: 'Cracker di barbabietola',
         content: 'Preparazione cracker di barbabietola',
         img: host + port + `/img/cracker_barbabietola.jpeg`,
         tags: ['barbabietola', 'Cracker', 'impasto', 'salato']
     },
     {
-        id: 3,
+        id: 6,
         title: 'Pane fritto',
         content: 'Come fare il pane fritto',
         img: host + port + `/img/pane_fritto_dolce.jpeg`,
         tags: ['dolce', 'Pane fritto']
     },
     {
-        id: 5,
+        id: 8,
         title: 'Pasta di barbabietola',
         content: 'Come preparare la pasta alla barbabietola',
         img: host + port + `/img/pasta_barbabietola.jpeg`,
         tags: ['barbabietola', 'pasta', 'impasto', 'salato']
     },
     {
-        id: 9,
+        id: 10,
         title: 'Torta paesana',
         content: '',
         img: host + port + `/img/torta_paesana.jpeg`,

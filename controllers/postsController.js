@@ -8,16 +8,16 @@ function index(req, res) {
 
     // logica
     const term = req.query.term ?? '';
-    let filteredPosts;
+    let filteredArray;
   
-    filteredPosts = postArray.filter((post) => {
+    filteredArray = postArray.filter((element) => {
   
-        const titleIncludesTerm = post.title.toLowerCase().includes(term.toLowerCase());
-        const contentIncludesTerm = post.content.toLowerCase().includes(term.toLowerCase());
+        const titleIncludesTerm = element.title.toLowerCase().includes(term.toLowerCase());
+        const contentIncludesTerm = element.content.toLowerCase().includes(term.toLowerCase());
   
         let tagsIncludesTerm = false;
   
-        post.tags.forEach((tag) => {
+        element.tags.forEach((tag) => {
             if (tag.toLowerCase().includes(term.toLowerCase())) tagsIncludesTerm = true;
         })
   
@@ -27,8 +27,8 @@ function index(req, res) {
     // risposta positiva
     // in questo caso non c'è errore ma al massimo vengono trovati zero post con quella query
     res.json({
-      foundPosts: filteredPosts.length,
-      posts: filteredPosts,
+      foundPosts: filteredArray.length,
+      posts: filteredArray,
     });
 }
 
@@ -38,15 +38,17 @@ function show(req, res) {
     
     // logica
     const id = parseInt(req.params.id);
-    filteredPost = postArray.filter(post => parseInt(post.id) === parseInt(id));
+    let filteredElement;
+
+    filteredElement = postArray.filter(post => parseInt(post.id) === parseInt(id));
 
     // gestione errore
-    if(filteredPost.length == 0) {
+    if(filteredElement.length == 0) {
         res.json('Post not found');
     }
 
     // risposta positiva
-    res.json(filteredPost);
+    res.json(filteredElement);
 }
 
 
@@ -58,14 +60,37 @@ function store(req, res) {
 
 // update
 function update(req, res) {
+
+    // logica
     const id = parseInt(req.params.id);
+    let foundElement;
+
+    foundElement = postArray.find((post, index) => post.id == id );
+
+    // gestione errore
+    if(!foundElement) {
+        return res.sendStatus(404);
+    }
+
+    // risposta positiva
     res.json(`Modifica totale del post con id ${id}`);
 }
 
 
 // modify
 function modify(req, res) {
+    
+    // logica
     const id = parseInt(req.params.id);
+    let foundElement;
+
+    foundElement = postArray.find((post, index) => post.id == id );
+
+    // gestione errore
+    if(!foundElement) {
+        return res.sendStatus(404);
+    }
+
     res.json(`Modifica parziale del post con id ${id}`);
 }
 
@@ -75,11 +100,11 @@ function destroy(req, res) {
 
     // logica
     const id = parseInt(req.params.id);
-    findPost = postArray.find((post, index) => post.id == id );
-    deleteIndex = postArray.indexOf(findPost);
+    foundElement = postArray.find((post, index) => post.id == id );
+    deleteIndex = postArray.indexOf(foundElement);
 
     // gestione errore
-    if(!findPost) {
+    if(!foundElement) {
         return res.sendStatus(404);
     }
 

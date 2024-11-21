@@ -27,7 +27,6 @@ app.get('/', (req, res) => {
 
 
 // Dichiarazione LISTEN
-
 app.listen(port, () => {
     console.log(`Listen attivo e in ascolto su ${host}:${port}`)
   })

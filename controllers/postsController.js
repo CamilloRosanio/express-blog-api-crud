@@ -78,6 +78,7 @@ function destroy() {
 
 
 
+// EXPORT delle funzioni CRUD
 module.exports = {
     index,
     show,

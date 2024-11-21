@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Dichiarazione dei REQUIRE delle risorse
 const path = require('path');
-const postArray = require('../data/posts.js');
+const postController = require('../controllers/postsController');
 
 
 

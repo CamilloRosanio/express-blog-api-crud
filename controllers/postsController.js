@@ -8,9 +8,8 @@ function index(req, res) {
 
     // logica
     const term = req.query.term ?? '';
-    let filteredArray;
   
-    filteredArray = postArray.filter((element) => {
+    let filteredArray = postArray.filter((element) => {
   
         const titleIncludesTerm = element.title.toLowerCase().includes(term.toLowerCase());
         const contentIncludesTerm = element.content.toLowerCase().includes(term.toLowerCase());
@@ -32,41 +31,36 @@ function index(req, res) {
     });
 }
 
-
 // show
 function show(req, res) {
     
     // logica
     const id = parseInt(req.params.id);
-    let filteredElement;
 
-    filteredElement = postArray.filter(post => parseInt(post.id) === parseInt(id));
+    let foundElement = postArray.find((post, index) => post.id == id );
 
     // gestione errore
-    if(filteredElement.length == 0) {
+    if(foundElement.length == 0) {
         return res.json('Post not found');
             
     }
 
     // risposta positiva
-    res.json(filteredElement);
+    res.json(foundElement);
 }
-
 
 // store
 function store(req, res) {
     res.json('Crea un nuovo Post');
 }
 
-
 // update
 function update(req, res) {
 
     // logica
     const id = parseInt(req.params.id);
-    let foundElement;
 
-    foundElement = postArray.find((post, index) => post.id == id );
+    let foundElement = postArray.find((post, index) => post.id == id );
 
     // gestione errore
     if(!foundElement) {
@@ -77,15 +71,13 @@ function update(req, res) {
     res.json(`Modifica totale del post con id ${id}`);
 }
 
-
 // modify
 function modify(req, res) {
     
     // logica
     const id = parseInt(req.params.id);
-    let foundElement;
 
-    foundElement = postArray.find((post, index) => post.id == id );
+    let foundElement = postArray.find((post, index) => post.id == id );
 
     // gestione errore
     if(!foundElement) {
@@ -95,14 +87,13 @@ function modify(req, res) {
     res.json(`Modifica parziale del post con id ${id}`);
 }
 
-
 // destroy
 function destroy(req, res) {
 
     // logica
     const id = parseInt(req.params.id);
-    foundElement = postArray.find((post, index) => post.id == id );
-    deleteIndex = postArray.indexOf(foundElement);
+    let foundElement = postArray.find((post, index) => post.id == id );
+    let deleteIndex = postArray.indexOf(foundElement);
 
     // gestione errore
     if(!foundElement) {

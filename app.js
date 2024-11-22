@@ -5,6 +5,11 @@ const host = process.env.HOST;
 
 
 
+/****************************************************
+| CONFIGURAZIONE EXPRESS JS
+****************************************************/
+
+
 // Dichiarazione EXPRESS JS
 const express = require('express');
 const app = express();

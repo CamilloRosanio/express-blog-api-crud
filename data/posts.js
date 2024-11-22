@@ -18,7 +18,7 @@ const postsData = [
         tags: ['barbabietola', 'Cracker', 'impasto', 'salato']
     },
     {
-        id: 6,
+        id: 50,
         title: 'Pane fritto',
         content: 'Come fare il pane fritto',
         img: `pane_fritto_dolce.jpeg`,

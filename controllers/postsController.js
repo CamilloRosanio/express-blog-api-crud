@@ -84,12 +84,25 @@ function store(req, res) {
         return res.status(400).json(`Missing or wrong format values`);
     }
 
-    // genero un nuovo ID univoco (in questo caso numerico)
-    const newId = postsData.at(-1).id + 1;
+    // generazione ID progressivo (in questo caso numerico) partendo dall'ID dell'ultimo elemento dell'Array
+    // const newId = postsData.at(-1).id + 1;
+
+    // generazione ID progressivo basato sul MAX_ID numerico + 1
+    let generateId = () => {
+        let max = 0;
+
+        postsData.forEach(element => {
+            if (parseInt(element.id) > max) {
+                max = element.id
+            }
+        })
+
+        return max + 1;
+    }
 
     // creazione di un nuovo OBJECT con nuovo ID
     const newElement = {
-        id: newId,
+        id: generateId(),
         title,
         content,
         // Mapping del PATH del'immagine

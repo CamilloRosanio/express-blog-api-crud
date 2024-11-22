@@ -3,6 +3,7 @@ const postsData = require('../data/posts.js');
 const port = process.env.PORT;
 const host = process.env.HOST;
 const folderPath = `/img/`;
+const finalPath = `${host}:${port}${folderPath}`;
 
 
 
@@ -31,8 +32,8 @@ function index(req, res) {
 
     // Mapping dinamico e centralizzato del PATH delle immagini (.img in questo caso)
     postsData.forEach(element => {
-        if (!element.img.includes(`${host}:${port}${folderPath}`)) {
-            filteredArray.map(element => element.img = `${host}:${port}${folderPath}` + element.img);
+        if (!element.img.includes(finalPath)) {
+            filteredArray.map(element => element.img = finalPath + element.img);
         }
     })
 
@@ -56,8 +57,8 @@ function show(req, res) {
     }
 
     // Mapping dinamico e centralizzato del PATH dell'immagine'
-    if (!foundElement.img.includes(`${host}:${port}${folderPath}`)) {
-        foundElement.img = `${host}:${port}${folderPath}` + foundElement.img;
+    if (!foundElement.img.includes(finalPath)) {
+        foundElement.img = finalPath + foundElement.img;
     }
 
     // risposta positiva
@@ -67,30 +68,32 @@ function show(req, res) {
 // store
 function store(req, res) {
 
-    // recupero delle informazioni JSON
+    // recupero le informazioni JSON, su cui essendo un OBJECT posso fare un DESTRUCTURING ricavando solo le proprietà che voglio
+    // questo qualora ve ne fossero altre a cui non sono interessato e che non voglio passare
     const { title, content, img, tags } = req.body;
 
-    // controllo validità dei dati ricevuti
+    // gestione errore
     if (
         !title || 
         !content || 
         !img ||
         !tags ||
         !Array.isArray(tags) ||
-        !tags.length
+        !tags?.length
     ) {
-        return res.status(400).json(`Missing values`);
+        return res.status(400).json(`Missing or wrong format values`);
     }
 
     // genero un nuovo ID univoco (in questo caso numerico)
-    const newId = postsData.at(-1).id + 1;    
+    const newId = postsData.at(-1).id + 1;
 
-    // creazione di un nuovo OBJECT
+    // creazione di un nuovo OBJECT con nuovo ID
     const newElement = {
         id: newId,
         title,
         content,
-        img,
+        // Mapping del PATH del'immagine
+        img: finalPath + img,
         tags
     }
 
@@ -113,8 +116,29 @@ function update(req, res) {
         return res.status(404).json('Element not found');  
     }
 
+    // Recupero i dati dalla richiesta PUT
+    const { title, content, img, tags } = req.body;
+
+    // gestione errore
+    if (
+        !title || 
+        !content || 
+        !img ||
+        !tags ||
+        !Array.isArray(tags) ||
+        !tags?.length
+    ) {
+        return res.status(400).json(`Missing or wrong format values`);
+    } 
+
+    // logica
+    foundElement.title = title;
+    foundElement.content = content;
+    foundElement.img = finalPath + img;
+    foundElement.tags = tags;
+
     // risposta positiva
-    res.json(`Modifica totale del post con id ${id}`);
+    res.json(foundElement);
 }
 
 // modify
@@ -122,16 +146,31 @@ function modify(req, res) {
     
     // logica
     const id = parseInt(req.params.id);
-
-    let foundElement = postsData.find((post, index) => post.id == id );
+    let foundElement = postsData.find(post => post.id == id );
 
     // gestione errore
-    if(!foundElement) {
-        return res.status(404).json('Element not found');
+    if(foundElement.length == 0) {
+        return res.status(404).json('Element not found');  
     }
 
+    // Recupero i dati dalla richiesta PUT
+    const { title, content, img, tags } = req.body;
+
+    // gestione errore
+    if (tags) {
+        if (!Array.isArray(tags) || !tags?.length) {
+            return res.status(400).json(`Missing or wrong format values`);
+        }
+    }
+
+    // logica
+    if (title) foundElement.title = title;
+    if (content) foundElement.content = content;
+    if (img) foundElement.img = finalPath + img;
+    if (tags) foundElement.tags = tags;
+
     // risposta positiva
-    res.json(`Modifica parziale del post con id ${id}`);
+    res.json(foundElement);
 }
 
 // destroy

@@ -1,4 +1,6 @@
-// Array di partenza
+/****************************************************
+| ARRAY DI PARTENZA
+****************************************************/
 
 const postsData = [
     {
@@ -41,10 +43,14 @@ const postsData = [
 
 
 
-/* Elemento TEST da aggiungere tramite POSTMAN in richiesta POST
+/****************************************************
+| ELEMENTI TEST
+****************************************************/
+/*
+ATTENZIONE: elementi scritti in modo tale da essere letti come JSON, quindi con gli apici anche nelle PROPERTIES dell'OBJECT
 
-ATTENZIONE: l'elemento è scritto in modo tale da essere letto come JSON, quindi con gli apici anche nelle PROPERTIES dell'OBJECT
 
+******************* STORE
 const newElement =
 {
     "title": "Pizza alla nutella",
@@ -53,7 +59,28 @@ const newElement =
     "tags": ["nutella", "impasto", "dolce"]
 }
 
+
+******************* UPDATE
+
+{
+    "title": "Ciambellone Update",
+    "content": "Delizioso ciambellone update",
+    "img": "ciambellone.jpeg",
+    "tags": ["ciambellone", "dolcissimo", "update"]
+}
+
+
+******************* MODIFY
+
+{
+    "title": "Cracker di Modify",
+    "content": "Modifica di un cracker di barbabietola",
+    "img": "cracker_barbabietola2.jpeg",
+    "tags": ["Modificato", "Supermodificato", "Modify"]
+}
+
 */
+
 
 
 

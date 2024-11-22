@@ -44,7 +44,8 @@ function show(req, res) {
 
     // gestione errore
     if(filteredElement.length == 0) {
-        res.json('Post not found');
+        return res.json('Post not found');
+            
     }
 
     // risposta positiva

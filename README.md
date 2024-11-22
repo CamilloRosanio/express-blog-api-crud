@@ -1,6 +1,8 @@
 esercizio di oggi: Express Blog - API CRUD (parte 1)
 repo: express-blog-api-crud
 
+
+
 Milestone 1
 
 Come prima cosa, creiamo un controller per i nostri post, in una cartella controllers.
@@ -18,6 +20,31 @@ Ora passiamo ad implementare le logiche delle nostre CRUD:
 Index dovrà restituire la lista dei post in formato JSON
 Show dovrà restituire un singolo post in formato JSON
 Destroy dovrà eliminare un singolo post dalla lista, stampare nel terminale (console.log) la lista aggiornata, e rispondere con uno stato 204 e nessun contenuto.
-Bonus
+
+
+
+BONUS
+
 Implementare un filtro di ricerca nella index che mostri solo i post che hanno un determinato Tag
 In Show e Destroy, controllare se il parametro si riferisce ad un post esistente, in caso contrario, rispondere con uno stato 404 e un messaggio d’errore, sempre in formato JSON.
+
+
+
+Milestone 3
+
+Implementiamo quindi la logica per aggiungere un nuovo post al nostro blog, e prepariamo la risposta adeguata.
+Testiamolo con postman.
+
+
+
+Milestone 4
+
+Ripetiamo il procedimento per la rotta di Update, in modo da avere la possibilità di modificare le nostre risorse.
+
+
+
+BONUS
+
+Quelli del giorno prima, se non già fatti
+Aggiungere un controllo dell'errore nelle rotte che utilizzano un parametro obbligatorio :id quando la risorsa corrispondente non viene trovata, rispondere con uno stato 404 e un messaggio d’errore, sempre in formato JSON.
+Aggiungere un controllo dell'errore per i parametri in ingresso nel body nelle rotte store e update , rispondere con uno stato 400 e un messaggio d’errore, sempre in formato JSON.

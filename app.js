@@ -1,5 +1,9 @@
-// Dichiarazione DOTENV e relativi valori
+/****************************************************
+| CONFIGURAZIONE DOTENV
+****************************************************/
 const dotEnv = require('dotenv').config();
+
+// Dichiarzione variabili DOTENV
 const port = process.env.PORT;
 const host = process.env.HOST;
 
@@ -16,6 +20,9 @@ const app = express();
 
 // Dichiarazione risorse PUBLIC
 app.use(express.static('public'));
+
+// Configurazione per la lettura di richieste POST (store), PUT(update), PATCH(modify)
+app.use(express.json());
 
 // Dichiarazione ROUTERS
 const postsRouter = require('./routers/posts');

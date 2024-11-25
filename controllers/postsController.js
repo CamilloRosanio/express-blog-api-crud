@@ -46,14 +46,21 @@ function index(req, res) {
 
 // show
 function show(req, res) {
-    
+
     // logica
     const id = parseInt(req.params.id);
     let foundElement = postsData.find(post => post.id == id );
 
-    // gestione errore
-    if(!postsData.find(post => post.id == id )) {
-        return res.status(404).json('Element not found');  
+    // gestione errore (MANUALE e singola solo per questa ROUTE)
+    // if(!foundElement) {
+    //     return res.status(404).json('Element not found');  
+    // }
+
+    // gestione errore centralizzata tramite MIDDLEWARE
+    if(!foundElement) {
+        const err = new Error('Element not found');
+        err.code = 404;
+        throw err;
     }
 
     // Mapping dinamico e centralizzato del PATH dell'immagine'
@@ -72,7 +79,7 @@ function store(req, res) {
     // questo qualora ve ne fossero altre a cui non sono interessato e che non voglio passare
     const { title, content, img, tags } = req.body;
 
-    // gestione errore
+    // gestione errore (MANUALE e singola solo per questa ROUTE)
     if (
         !title || 
         !content || 
@@ -81,7 +88,13 @@ function store(req, res) {
         !Array.isArray(tags) ||
         !tags?.length
     ) {
-        return res.status(400).json(`Missing or wrong format values`);
+        // (gestione errore MANUALE e singola solo per questa ROUTE)
+        // return res.status(400).json(`Missing or wrong format values`);
+
+        // gestione errore centralizzata tramite MIDDLEWARE
+        const err = new Error('Missing or wrong format values');
+        err.code = 400;
+        throw err;
     }
 
     // generazione ID progressivo (in questo caso numerico) partendo dall'ID dell'ultimo elemento dell'Array
@@ -124,9 +137,16 @@ function update(req, res) {
     const id = parseInt(req.params.id);
     let foundElement = postsData.find(post => post.id == id );
 
-    // gestione errore
-    if(foundElement.length == 0) {
-        return res.status(404).json('Element not found');  
+    // gestione errore (MANUALE e singola solo per questa ROUTE)
+    // if(!foundElement) {
+    //     return res.status(404).json('Element not found');  
+    // }
+
+    // gestione errore centralizzata tramite MIDDLEWARE
+    if(!foundElement) {
+        const err = new Error('Element not found');
+        err.code = 404;
+        throw err;
     }
 
     // Recupero i dati dalla richiesta PUT
@@ -141,7 +161,13 @@ function update(req, res) {
         !Array.isArray(tags) ||
         !tags?.length
     ) {
-        return res.status(400).json(`Missing or wrong format values`);
+        // gestione errore (MANUALE e singola solo per questa ROUTE)
+        // return res.status(400).json(`Missing or wrong format values`);
+
+        // gestione errore centralizzata tramite MIDDLEWARE
+        const err = new Error('Missing or wrong format values');
+        err.code = 400;
+        throw err;
     } 
 
     // logica
@@ -161,9 +187,16 @@ function modify(req, res) {
     const id = parseInt(req.params.id);
     let foundElement = postsData.find(post => post.id == id );
 
-    // gestione errore
-    if(foundElement.length == 0) {
-        return res.status(404).json('Element not found');  
+    // gestione errore (MANUALE e singola solo per questa ROUTE)
+    // if(!foundElement) {
+    //     return res.status(404).json('Element not found');  
+    // }
+
+    // gestione errore centralizzata tramite MIDDLEWARE
+    if(!foundElement) {
+        const err = new Error('Element not found');
+        err.code = 404;
+        throw err;
     }
 
     // Recupero i dati dalla richiesta PUT
@@ -172,7 +205,14 @@ function modify(req, res) {
     // gestione errore
     if (tags) {
         if (!Array.isArray(tags) || !tags?.length) {
-            return res.status(400).json(`Missing or wrong format values`);
+
+            //gestione errore (MANUALE e singola solo per questa ROUTE)
+            // return res.status(400).json(`Missing or wrong format values`);
+
+            // gestione errore centralizzata tramite MIDDLEWARE
+            const err = new Error('Missing or wrong format values');
+            err.code = 400;
+            throw err;
         }
     }
 
@@ -194,9 +234,16 @@ function destroy(req, res) {
     let foundElement = postsData.find((post, index) => post.id == id );
     let deleteIndex = postsData.indexOf(foundElement);
 
-    // gestione errore
+    // gestione errore (MANUALE e singola solo per questa ROUTE)
+    // if(!foundElement) {
+    //     return res.status(404).json('Element not found');  
+    // }
+
+    // gestione errore centralizzata tramite MIDDLEWARE
     if(!foundElement) {
-        return res.status(404).json('Element not found');
+        const err = new Error('Element not found');
+        err.code = 404;
+        throw err;
     }
 
     // logica

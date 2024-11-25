@@ -38,7 +38,8 @@ app.use('/posts', postsRouter);
 
 
 // ROUTE della Homepage
-app.get('/', (req, res, next) => {
+app.get('/', 
+  (req, res, next) => {
     console.log('Eseguita la funzione 1');
     res.send('Il mio Blog');
 

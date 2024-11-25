@@ -25,21 +25,44 @@ app.use(express.json());
 const checkTime = require('./middlewares/checkTime');
 app.use(checkTime);
 
+/*
+NOTA: se volessi applicare "checkTime" solo alla ROUTE dei Posts, posso specificarlo in "app.use" come parametro PATH,
+questo se voglio centralizzare tutti i MIDDLEWARE sul file "app.js" invece che ciascun ROUTER, e si scrive come segue:
+app.use('./posts', checkTime);
+*/
 
-// Dichiarazione ROUTERS
+
+// ROUTERS
 const postsRouter = require('./routers/posts');
-
-
-// Utilizzo dei ROUTERS
 app.use('/posts', postsRouter);
 
 
 // ROUTE della Homepage
-app.get('/', (req, res) => {
-  res.send('Il mio Blog');
-})
+app.get('/', (req, res, next) => {
+    console.log('Eseguita la funzione 1');
+    res.send('Il mio Blog');
 
-// MIDDLEWARES (errorHandler + notFound)
+    // senza questo NEXT le prossime funzioni sarebbero ignorate
+    next();
+  },
+  (req, res, next) => {
+    console.log('Eseguita tramite precedente NEXT la funzione 2');
+
+    // senza questo NEXT le prossime funzioni sarebbero ignorate
+    next();
+  },
+  (req, res) => {
+    console.log('Eseguita tramite precedente NEXT la funzione 3');
+  }
+)
+
+
+// MIDDLEWARES (ERRORS MANAGEMENT)
+const errorsHandler = require('./middlewares/errorsHandler');
+const notFound = require('./middlewares/notFound');
+
+app.use(errorsHandler);
+app.use(notFound);
 
 
 // Dichiarazione LISTEN

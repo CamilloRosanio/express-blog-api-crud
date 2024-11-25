@@ -24,6 +24,8 @@ app.use(express.static('public'));
 app.use(express.json());
 const checkTime = require('./middlewares/checkTime');
 app.use(checkTime);
+const errorsHandler = require('./middlewares/errorsHandler');
+const notFound = require('./middlewares/notFound');
 
 /*
 NOTA: se volessi applicare "checkTime" solo alla ROUTE dei Posts, posso specificarlo in "app.use" come parametro PATH,
@@ -59,9 +61,6 @@ app.get('/',
 
 
 // MIDDLEWARES (ERRORS MANAGEMENT)
-const errorsHandler = require('./middlewares/errorsHandler');
-const notFound = require('./middlewares/notFound');
-
 app.use(errorsHandler);
 app.use(notFound);
 

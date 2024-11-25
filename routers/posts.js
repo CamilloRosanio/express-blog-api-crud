@@ -2,8 +2,13 @@
 const express = require('express');
 const router = express.Router();
 
-// Dichiarazione dei REQUIRE delle risorse
+// REQUIRE delle risorse
 const postController = require('../controllers/postsController');
+
+// MIDDLEWARE specifico solo per le ROUTES di posts.js
+const checkTime = require('../middlewares/posts_checkTime');
+const postsCheckTime = require('../middlewares/posts_checkTime');
+router.use(postsCheckTime);
 
 
 // Dichiarazione delle ROUTES

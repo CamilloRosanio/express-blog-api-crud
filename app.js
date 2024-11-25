@@ -18,11 +18,16 @@ const host = process.env.HOST;
 const express = require('express');
 const app = express();
 
-// Dichiarazione risorse PUBLIC
+// Dichiarazione MIDDLEWARES
 app.use(express.static('public'));
-
-// Configurazione per la lettura di richieste POST (store), PUT(update), PATCH(modify)
 app.use(express.json());
+
+const errorsHandler = require('./middlewares/errorsHandler');
+app.use(errorsHandler);
+const notFound = require('./middlewares/notFound');
+app.use(notFound);
+const checkTime = require('./middlewares/checkTime');
+app.use(checkTime);
 
 // Dichiarazione ROUTERS
 const postsRouter = require('./routers/posts');
@@ -35,6 +40,9 @@ app.use('/posts', postsRouter);
 app.get('/', (req, res) => {
   res.send('Il mio Blog');
 })
+
+// Utilizzo dei MIDDLEWARES
+
 
 // Dichiarazione LISTEN
 app.listen(port, () => {

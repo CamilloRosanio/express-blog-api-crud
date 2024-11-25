@@ -1,6 +1,7 @@
+***************************************************************************************
 esercizio di oggi: Express Blog - API CRUD (parte 1)
 repo: express-blog-api-crud
-
+***************************************************************************************
 
 
 Milestone 1
@@ -48,3 +49,18 @@ BONUS
 Quelli del giorno prima, se non già fatti
 Aggiungere un controllo dell'errore nelle rotte che utilizzano un parametro obbligatorio :id quando la risorsa corrispondente non viene trovata, rispondere con uno stato 404 e un messaggio d’errore, sempre in formato JSON.
 Aggiungere un controllo dell'errore per i parametri in ingresso nel body nelle rotte store e update , rispondere con uno stato 400 e un messaggio d’errore, sempre in formato JSON.
+
+
+
+
+
+***************************************************************************************
+esercizio di oggi: Express Blog - Middlewares
+repo: express-blog-api-crud (sempre la stessa)
+***************************************************************************************
+
+Esercizio
+
+Dopo aver completato tutte le operazioni CRUD, completiamo le nostre API inserendo un middleware per la gestione delle rotte non registrate e uno per la gestione degli errori.
+Se viene chiamato un endpoint inesistente, un middleware dovrà rispondere un messaggio e uno status appropriato.
+Se viene generato un errore, un middleware si occuperà di rispondere con un messaggio e uno status appropriato.

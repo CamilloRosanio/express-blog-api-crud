@@ -5,7 +5,7 @@
 const postsData = [
     {
         id: 2,
-        category: '',
+        category: 'Recipes',
         title: 'Ciambellone',
         content: 'Delizioso ciambellone',
         img: `ciambellone.jpeg`,
@@ -14,7 +14,7 @@ const postsData = [
     },
     {
         id: 4,
-        category: '',
+        category: 'Recipes',
         title: 'Cracker di barbabietola',
         content: 'Preparazione cracker di barbabietola',
         img: `cracker_barbabietola.jpeg`,
@@ -23,7 +23,7 @@ const postsData = [
     },
     {
         id: 50,
-        category: '',
+        category: 'Recipes',
         title: 'Pane fritto',
         content: 'Come fare il pane fritto',
         img: `pane_fritto_dolce.jpeg`,
@@ -32,7 +32,7 @@ const postsData = [
     },
     {
         id: 8,
-        category: '',
+        category: 'Recipes',
         title: 'Pasta di barbabietola',
         content: 'Come preparare la pasta alla barbabietola',
         img: `pasta_barbabietola.jpeg`,
@@ -41,7 +41,7 @@ const postsData = [
     },
     {
         id: 10,
-        category: '',
+        category: 'Recipes',
         title: 'Torta paesana',
         content: 'La torta paesana più buona',
         img: `torta_paesana.jpeg`,

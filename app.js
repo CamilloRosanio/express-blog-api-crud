@@ -27,6 +27,11 @@ app.use(checkTime);
 const errorsHandler = require('./middlewares/errorsHandler');
 const notFound = require('./middlewares/notFound');
 
+// CORS (CROSS-ORIGIN-RESOURCE-SHARING)
+// I CORS prevengono che anche se sbaglio PORT il server mi fornisca comunque i dati, senza mandarmi in errore nonostante lo STATUS 200 (SUCCESS)
+const cors = require('cors');
+app.use(cors());
+
 /*
 NOTA: se volessi applicare "checkTime" solo alla ROUTE dei Posts, posso specificarlo in "app.use" come parametro PATH,
 questo se voglio centralizzare tutti i MIDDLEWARE sul file "app.js" invece che ciascun ROUTER, e si scrive come segue:
@@ -40,7 +45,7 @@ app.use('/posts', postsRouter);
 
 
 // ROUTE della Homepage
-app.get('/', 
+app.get('/',
   (req, res, next) => {
     console.log('Eseguita la funzione 1');
     res.send('Il mio Blog');
@@ -67,5 +72,5 @@ app.use(notFound);
 
 // Dichiarazione LISTEN
 app.listen(port, () => {
-    console.log(`Listen attivo e in ascolto su ${host}:${port}`)
-  })
+  console.log(`Listen attivo e in ascolto su ${host}:${port}`)
+})

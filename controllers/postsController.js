@@ -14,19 +14,19 @@ function index(req, res) {
     const term = req.query.term ?? '';
 
     let filteredArray = postsData.filter((element) => {
-        
+
         // query TITLE
         const titleIncludesTerm = element.title.toLowerCase().includes(term.toLowerCase());
         // query CONTENT
         const contentIncludesTerm = element.content.toLowerCase().includes(term.toLowerCase());
-        
+
         // query TAGS
         let tagsIncludesTerm = false;
-  
+
         element.tags.forEach((tag) => {
             if (tag.toLowerCase().includes(term.toLowerCase())) tagsIncludesTerm = true;
         })
-  
+
         return titleIncludesTerm || contentIncludesTerm || tagsIncludesTerm;
     })
 
@@ -39,8 +39,8 @@ function index(req, res) {
 
     // risposta positiva
     res.json({
-      foundElements: filteredArray.length,
-      elements: filteredArray,
+        foundElements: filteredArray.length,
+        elements: filteredArray,
     });
 }
 
@@ -49,7 +49,7 @@ function show(req, res) {
 
     // logica
     const id = parseInt(req.params.id);
-    let foundElement = postsData.find(post => post.id == id );
+    let foundElement = postsData.find(post => post.id == id);
 
     // gestione errore (MANUALE e singola solo per questa ROUTE)
     // if(!foundElement) {
@@ -57,7 +57,7 @@ function show(req, res) {
     // }
 
     // gestione errore centralizzata tramite MIDDLEWARE
-    if(!foundElement) {
+    if (!foundElement) {
         const err = new Error('Element not found');
         err.code = 404;
         throw err;
@@ -81,8 +81,8 @@ function store(req, res) {
 
     // gestione errore (MANUALE e singola solo per questa ROUTE)
     if (
-        !title || 
-        !content || 
+        !title ||
+        !content ||
         !img ||
         !tags ||
         !Array.isArray(tags) ||
@@ -116,11 +116,13 @@ function store(req, res) {
     // creazione di un nuovo OBJECT con nuovo ID
     const newElement = {
         id: generateId(),
+        category: '',
         title,
         content,
         // Mapping del PATH del'immagine
         img: finalPath + img,
-        tags
+        tags,
+        published: true,
     }
 
     // PUSH del nuovo elemento nell'Array di Posts
@@ -135,7 +137,7 @@ function update(req, res) {
 
     // logica
     const id = parseInt(req.params.id);
-    let foundElement = postsData.find(post => post.id == id );
+    let foundElement = postsData.find(post => post.id == id);
 
     // gestione errore (MANUALE e singola solo per questa ROUTE)
     // if(!foundElement) {
@@ -143,7 +145,7 @@ function update(req, res) {
     // }
 
     // gestione errore centralizzata tramite MIDDLEWARE
-    if(!foundElement) {
+    if (!foundElement) {
         const err = new Error('Element not found');
         err.code = 404;
         throw err;
@@ -154,8 +156,8 @@ function update(req, res) {
 
     // gestione errore
     if (
-        !title || 
-        !content || 
+        !title ||
+        !content ||
         !img ||
         !tags ||
         !Array.isArray(tags) ||
@@ -168,7 +170,7 @@ function update(req, res) {
         const err = new Error('Missing or wrong format values');
         err.code = 400;
         throw err;
-    } 
+    }
 
     // logica
     foundElement.title = title;
@@ -182,10 +184,10 @@ function update(req, res) {
 
 // modify
 function modify(req, res) {
-    
+
     // logica
     const id = parseInt(req.params.id);
-    let foundElement = postsData.find(post => post.id == id );
+    let foundElement = postsData.find(post => post.id == id);
 
     // gestione errore (MANUALE e singola solo per questa ROUTE)
     // if(!foundElement) {
@@ -193,7 +195,7 @@ function modify(req, res) {
     // }
 
     // gestione errore centralizzata tramite MIDDLEWARE
-    if(!foundElement) {
+    if (!foundElement) {
         const err = new Error('Element not found');
         err.code = 404;
         throw err;
@@ -231,7 +233,7 @@ function destroy(req, res) {
 
     // logica
     const id = parseInt(req.params.id);
-    let foundElement = postsData.find((post, index) => post.id == id );
+    let foundElement = postsData.find((post, index) => post.id == id);
     let deleteIndex = postsData.indexOf(foundElement);
 
     // gestione errore (MANUALE e singola solo per questa ROUTE)
@@ -240,7 +242,7 @@ function destroy(req, res) {
     // }
 
     // gestione errore centralizzata tramite MIDDLEWARE
-    if(!foundElement) {
+    if (!foundElement) {
         const err = new Error('Element not found');
         err.code = 404;
         throw err;

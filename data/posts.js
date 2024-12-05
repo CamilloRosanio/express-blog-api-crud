@@ -5,38 +5,48 @@
 const postsData = [
     {
         id: 2,
+        category: '',
         title: 'Ciambellone',
         content: 'Delizioso ciambellone',
         img: `ciambellone.jpeg`,
-        tags: ['ciambellone', 'Dolce', 'Torte']
+        tags: ['ciambellone', 'Dolce', 'Torte'],
+        published: true,
     },
     {
         id: 4,
+        category: '',
         title: 'Cracker di barbabietola',
         content: 'Preparazione cracker di barbabietola',
         img: `cracker_barbabietola.jpeg`,
-        tags: ['barbabietola', 'Cracker', 'impasto', 'salato']
+        tags: ['barbabietola', 'Cracker', 'impasto', 'salato'],
+        published: true,
     },
     {
         id: 50,
+        category: '',
         title: 'Pane fritto',
         content: 'Come fare il pane fritto',
         img: `pane_fritto_dolce.jpeg`,
-        tags: ['dolce', 'Pane fritto']
+        tags: ['dolce', 'Pane fritto'],
+        published: false,
     },
     {
         id: 8,
+        category: '',
         title: 'Pasta di barbabietola',
         content: 'Come preparare la pasta alla barbabietola',
         img: `pasta_barbabietola.jpeg`,
-        tags: ['barbabietola', 'pasta', 'impasto', 'salato']
+        tags: ['barbabietola', 'pasta', 'impasto', 'salato'],
+        published: true,
     },
     {
         id: 10,
+        category: '',
         title: 'Torta paesana',
         content: 'La torta paesana più buona',
         img: `torta_paesana.jpeg`,
-        tags: ['torte', 'torta paesana', 'dolce']
+        tags: ['torte', 'torta paesana', 'dolce'],
+        published: true,
     }
 ]
 
